@@ -144,10 +144,12 @@ GPIO_Error_t GPIO_DeInit(GPIO_TypeDef *gpio)
 	else if(gpio == GPIOD)
 	{
 		RCC->IOPRSTR |= RCC_IOPRSTR_GPIODRST;
+		RCC->IOPRSTR &= ~RCC_IOPRSTR_GPIODRST;
 	}
 	else if(gpio == GPIOF)
 	{
 		RCC->IOPRSTR |= RCC_IOPRSTR_GPIOFRST;
+		RCC->IOPRSTR &= ~RCC_IOPRSTR_GPIOFRST;
 	}
 
 	return GPIO_ERROR_NONE;
