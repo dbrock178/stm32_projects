@@ -306,19 +306,19 @@ static void GPIO_EnableClock(GPIO_Handle_t *handle)
 	{
 		RCC->IOPENR|=RCC_IOPENR_GPIOAEN;
 	}
-	if(handle->gpio==GPIOB)
+	else if(handle->gpio==GPIOB)
 	{
 		RCC->IOPENR|=RCC_IOPENR_GPIOBEN;
 	}
-	if(handle->gpio==GPIOC)
+	else if(handle->gpio==GPIOC)
 	{
 		RCC->IOPENR|=RCC_IOPENR_GPIOCEN;
 	}
-	if(handle->gpio==GPIOD)
+	else if(handle->gpio==GPIOD)
 	{
 		RCC->IOPENR|=RCC_IOPENR_GPIODEN;
 	}
-	if(handle->gpio==GPIOF)
+	else if(handle->gpio==GPIOF)
 	{
 		RCC->IOPENR|=RCC_IOPENR_GPIOFEN;
 	}
