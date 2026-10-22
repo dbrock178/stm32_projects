@@ -29,7 +29,9 @@ static void GPIO_EnableClock(GPIO_Handle_t *handle);
 
 GPIO_Error_t GPIO_PeriphClock(GPIO_TypeDef *gpio,uint8_t enable)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio) || !IS_GPIO_PCLK_ENABLE_VALID(enable)) { return GPIO_ERROR_ARG; }
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
+
+	if(!IS_GPIO_PCLK_ENABLE_VALID(enable)) { return GPIO_ERROR_ARG; }
 
 	if(enable)
 	{
@@ -122,7 +124,7 @@ GPIO_Error_t GPIO_Init(GPIO_Handle_t *handle)
 
 GPIO_Error_t GPIO_DeInit(GPIO_TypeDef *gpio)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_ARG; }
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
 
 	if(gpio == GPIOA)
 	{
@@ -153,7 +155,7 @@ GPIO_Error_t GPIO_DeInit(GPIO_TypeDef *gpio)
 
 GPIO_Error_t GPIO_WritePort(GPIO_TypeDef *gpio,uint16_t value)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_ARG; }
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
 
 	gpio->ODR = value;
 
@@ -162,7 +164,7 @@ GPIO_Error_t GPIO_WritePort(GPIO_TypeDef *gpio,uint16_t value)
 
 GPIO_Error_t GPIO_ReadPort(GPIO_TypeDef *gpio,uint16_t *value)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_ARG; }
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
 
 	*value = gpio->IDR;
 
@@ -171,11 +173,11 @@ GPIO_Error_t GPIO_ReadPort(GPIO_TypeDef *gpio,uint16_t *value)
 
 GPIO_Error_t GPIO_WritePin(GPIO_TypeDef *gpio,uint8_t pin_number,uint16_t value)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio) || !IS_GPIO_PIN_VALID(pin_number) || \
-	   !IS_GPIO_PIN_VALUE_VALID(value))
-	{
-		return GPIO_ERROR_ARG;
-	}
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
+
+	if(!IS_GPIO_PIN_VALID(pin_number)) { return GPIO_ERROR_PIN_NUMBER; }
+
+	if(!IS_GPIO_PIN_VALUE_VALID(value)) { return GPIO_ERROR_ARG; }
 
 	if(value)
 	{
@@ -191,10 +193,11 @@ GPIO_Error_t GPIO_WritePin(GPIO_TypeDef *gpio,uint8_t pin_number,uint16_t value)
 
 GPIO_Error_t GPIO_ReadPin(GPIO_TypeDef *gpio,uint8_t pin_number,uint8_t *value)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio) || !IS_GPIO_PIN_VALID(pin_number))
-	{
-		return GPIO_ERROR_ARG;
-	}
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
+
+	if(!IS_GPIO_PIN_VALID(pin_number)) { return GPIO_ERROR_PIN_NUMBER; }
+
+	if(value == 0) { return GPIO_ERROR_ARG; }
 
 	*value= ((gpio->IDR & (1<<pin_number)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
@@ -203,10 +206,9 @@ GPIO_Error_t GPIO_ReadPin(GPIO_TypeDef *gpio,uint8_t pin_number,uint8_t *value)
 
 GPIO_Error_t GPIO_TogglePin(GPIO_TypeDef *gpio,uint8_t pin_number)
 {
-	if(!IS_GPIO_ALL_INSTANCE(gpio) || !IS_GPIO_PIN_VALID(pin_number))
-	{
-		return GPIO_ERROR_ARG;
-	}
+	if(!IS_GPIO_ALL_INSTANCE(gpio)) { return GPIO_ERROR_GPIO; }
+
+	if(!IS_GPIO_PIN_VALID(pin_number)) { return GPIO_ERROR_PIN_NUMBER; };
 
 	gpio->ODR ^= (1<<pin_number);
 
