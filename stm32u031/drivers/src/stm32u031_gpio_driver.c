@@ -1,7 +1,7 @@
 #include "stm32u031_gpio_driver.h"
 #include "stm32u031xx.h"
 
-#define GPIO_PIN_MAX							15
+#define GPIO_PIN_MAX							GPIO_PIN_15
 #define GPIO_MODE_MAX							GPIO_MODE_IT_RTFT
 #define GPIO_OTYPE_MAX							GPIO_OTYPE_OD
 #define GPIO_SPEED_MAX							GPIO_SPEED_VHI
@@ -349,6 +349,7 @@ GPIO_Error_t GPIO_IRQHandling(uint8_t pin_number)
 
 	return GPIO_ERROR_NONE;
 }
+
 __attribute__((weak)) void GPIO_RisingEdge_Callback(uint8_t pin_number)
 {
 
