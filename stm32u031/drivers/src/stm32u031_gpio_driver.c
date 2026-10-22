@@ -302,25 +302,25 @@ static void GPIO_SetMode(GPIO_Handle_t *handle)
 
 static void GPIO_EnableClock(GPIO_Handle_t *handle)
 {
-	if(handle->gpio==GPIOA)
+	if(handle->gpio == GPIOA)
 	{
-		RCC->IOPENR|=RCC_IOPENR_GPIOAEN;
+		RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
 	}
-	else if(handle->gpio==GPIOB)
+	else if(handle->gpio == GPIOB)
 	{
-		RCC->IOPENR|=RCC_IOPENR_GPIOBEN;
+		RCC->IOPENR |= RCC_IOPENR_GPIOBEN;
 	}
-	else if(handle->gpio==GPIOC)
+	else if(handle->gpio == GPIOC)
 	{
-		RCC->IOPENR|=RCC_IOPENR_GPIOCEN;
+		RCC->IOPENR |= RCC_IOPENR_GPIOCEN;
 	}
-	else if(handle->gpio==GPIOD)
+	else if(handle->gpio == GPIOD)
 	{
-		RCC->IOPENR|=RCC_IOPENR_GPIODEN;
+		RCC->IOPENR |= RCC_IOPENR_GPIODEN;
 	}
-	else if(handle->gpio==GPIOF)
+	else if(handle->gpio == GPIOF)
 	{
-		RCC->IOPENR|=RCC_IOPENR_GPIOFEN;
+		RCC->IOPENR |= RCC_IOPENR_GPIOFEN;
 	}
 }
 
